@@ -1,3 +1,8 @@
+"""
+Monte Carlo Simulation for Project Completion Dates
+Version: 1.4
+"""
+
 import random
 import numpy as np
 import matplotlib.pyplot as plt
@@ -12,13 +17,22 @@ num_items = 187
 num_completed = 18
 timeframe_weeks = 12
 
-# Define function to calculate completion dates for simulations
 def calculate_completion_dates():
+    """
+    Simulates completion dates for a project using Monte Carlo methods.
+
+    The function calculates the time required to complete a specified number of 
+    items (`num_items`) based on historical throughput data. Simulations incorporate
+    randomness to model variability in throughput and predict possible completion dates.
+
+    Returns:
+        list[datetime]: A list of datetime objects representing projected completion dates.
+    """
     completion_dates = []
     for _ in range(num_simulations):
         completed = num_completed
         current_week = 0
-        while completed < num_items: # and current_week < timeframe_weeks:
+        while completed < num_items:
             # Randomly select throughput value from historical data
             throughput = random.choice(throughputs)
             completed += random.normalvariate(throughput / timeframe_weeks, 10)  # Assuming 10 as variability
@@ -31,19 +45,11 @@ def calculate_completion_dates():
 # Run simulations and calculate completion dates
 completion_dates = calculate_completion_dates()
 
-completion_dates.sort()
-
-# Calculate the projected date at which the simulation is 95% sure
-percentile_index_95 = int(0.95 * len(completion_dates))
-projected_completion_date_95 = completion_dates[percentile_index_95]
-
-# Calculate the projected date at which the simulation is 85% sure
-percentile_index_85 = int(0.85 * len(completion_dates))
-projected_completion_date_85 = completion_dates[percentile_index_85]
-
-# Calculate the projected date at which the simulation is 60% sure
-percentile_index_60 = int(0.6 * len(completion_dates))
-projected_completion_date_60 = completion_dates[percentile_index_60]
+# Calculate percentiles directly using np.percentile
+completion_dates_np = np.array([(date - datetime.today()).days for date in completion_dates])  # Convert to days
+projected_completion_date_95 = datetime.today() + timedelta(days=np.percentile(completion_dates_np, 95))
+projected_completion_date_85 = datetime.today() + timedelta(days=np.percentile(completion_dates_np, 85))
+projected_completion_date_60 = datetime.today() + timedelta(days=np.percentile(completion_dates_np, 60))
 
 # Output projected completion dates
 print("Projected Completion Date (95% certainty):", projected_completion_date_95)
