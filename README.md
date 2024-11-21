@@ -28,6 +28,12 @@ Note that standard deviation of historical thorughput values can be represented 
 
 > simulated_value = random.normalvariate(historical_value, 5)  # Using standard deviation of 5
 
+### multiple-items-date-forecast-wip.py:
+
+Same variables and output as multiple-items-date-forecast.py, with the addition of using Little's Law to compute the effect of WIP on probable date. WIP can be adjusted via the following line of code:
+
+> max_wip = 100  # Maximum allowable work-in-progress
+
 ### SLEs
 
 Below are some scripts to use to calculate Service Level Expectations (SLEs) for your teams. There are two versions - a simple and an advanced SLE - which are explained below.
