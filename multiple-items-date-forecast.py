@@ -55,7 +55,7 @@ projected_completion_date_85 = base_date + timedelta(days=np.percentile(completi
 projected_completion_date_60 = base_date + timedelta(days=np.percentile(completion_dates_np, 60))
 
 # Output projected completion dates
-print("Start Date:",base_date)
+print("Start Date:",base_date.date())
 print("Projected Completion Date (95% certainty):", projected_completion_date_95)
 print("Projected Completion Date (85% certainty):", projected_completion_date_85)
 print("Projected Completion Date (60% certainty):", projected_completion_date_60)
