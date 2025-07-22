@@ -14,6 +14,8 @@ throughputs = [55, 86, 132, 152, 132]
 
 # Parameters
 num_simulations = 10000
+
+# User Defined Parameters
 num_items = 187
 num_completed = 18
 timeframe_weeks = 12
