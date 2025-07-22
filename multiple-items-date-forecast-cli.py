@@ -19,6 +19,7 @@ num_simulations = 10000
 num_items = 187
 num_completed = 18
 timeframe_weeks = 12
+throughput_sigma = 10
 start_date = "2025-08-01"  # Format: 'YYYY-MM-DD' or leave as "" to use today's date
 
 # Get CSV file path from command-line or use default
@@ -58,7 +59,7 @@ def calculate_completion_dates(base_date):
         current_week = 0
         while completed < num_items:
             throughput = random.choice(throughputs)
-            completed += random.normalvariate(throughput / timeframe_weeks, 10)
+            completed += random.normalvariate(throughput / timeframe_weeks, throughput_sigma)
             current_week += 1
         completion_date = base_date + timedelta(weeks=current_week)
         completion_dates.append(completion_date)

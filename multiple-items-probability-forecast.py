@@ -10,13 +10,16 @@ historical_throughput = [6,11,7,9,9,2]
 # Number of simulations
 num_simulations = 10000
 
+# User Defined Parameters
+throughput_sigma = 10
+
 # Perform Monte Carlo Simulation
 simulated_throughput = []
 for _ in range(num_simulations):
     # Randomly pick one throughput value from historical data
     historical_value = random.choice(historical_throughput)
     # Generate simulated throughput value using random.normalvariate
-    simulated_value = random.normalvariate(historical_value, 2)  # Using standard deviation of 5
+    simulated_value = random.normalvariate(historical_value, throughput_sigma)  
     simulated_throughput.append(simulated_value)
 
 # Sort the simulated throughput values
