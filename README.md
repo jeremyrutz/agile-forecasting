@@ -11,12 +11,42 @@ Generates probable date forecasts for completing multiple items.
 * **num_items** - Number of items planned to complete
 * **num_completed** - If any of the planned items have been completed to date, account for them here
 * **timeframe_weeks** - Timeframe represented in weeks for which both throughput has been completed, as well as num_items to be completed
-
+* **start_date** - Format: 'YYYY-MM-DD' or leave as "" to use today's date
+  
 throughputs, num_items, num_completed all need to be of the same value type. That is, if throughput is in user stories, then num_completed should be the planned user stories and num_completed are the user stories completed to date.
 
 Note that standard deviation of historical thorughput values can be represented in the following line of code:
 
 > completed += random.normalvariate(throughput / timeframe_weeks, 10) # Assuming 10 as variability
+
+### multiple-items-date-forecast-cli:
+
+Same script as above, except that the script uses historical throughput values from a comma-delimited (CSV) file via a command line argument.
+
+The command line prompt will look like this:
+
+> python multiple-items-date-forecast.py data.csv
+
+Where:
+
+* the CSV can be specified in an absolute path, i.e., c:\data\data.csv
+* the CSV can be in a subdirectory to the directory in which the script is run, i.e., data/data.csv
+* the CSV can be in the same directory in which the script is run, i.e., data.csv
+* if there is no argument specified, the script will assume throughput_data.csv in the directory the script is run as the input file
+
+The input file can be represented in columns, i.e.:
+
+>55
+>86
+>132
+>152
+>132
+
+or rows, i.e.:
+
+>55,86,132,152,132
+
+an example CSV file "throughput_data.csv" has been uploaded to the repo as an example. 
 
 ### multiple-items-probability-forecast.py:
 
