@@ -32,7 +32,7 @@ Where:
 * the CSV can be specified in an absolute path, i.e., c:\data\data.csv
 * the CSV can be in a subdirectory to the directory in which the script is run, i.e., data/data.csv
 * the CSV can be in the same directory in which the script is run, i.e., data.csv
-* if there is no argument specified, the script will assume throughput_data.csv in the directory the script is run as the input file
+* if there is no argument specified, the script will assume "throughput_data.csv" in the directory the script is run as the input file
 
 The input file can be represented in columns, i.e.:
 
