@@ -37,9 +37,13 @@ Where:
 The input file can be represented in columns, i.e.:
 
 >55
+>
 >86
+>
 >132
+>
 >152
+>
 >132
 
 or rows, i.e.:
