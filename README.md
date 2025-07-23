@@ -11,13 +11,10 @@ Generates probable date forecasts for completing multiple items.
 * **num_items** - Number of items planned to complete
 * **num_completed** - If any of the planned items have been completed to date, account for them here
 * **timeframe_weeks** - Timeframe represented in weeks for which both throughput has been completed, as well as num_items to be completed
+* **throughput_sigma** - Standard deviation for historical throughput values
 * **start_date** - Format: 'YYYY-MM-DD' or leave as "" to use today's date
   
 throughputs, num_items, num_completed all need to be of the same value type. That is, if throughput is in user stories, then num_completed should be the planned user stories and num_completed are the user stories completed to date.
-
-Note that standard deviation of historical thorughput values can be represented in the following line of code:
-
-> completed += random.normalvariate(throughput / timeframe_weeks, 10) # Assuming 10 as variability
 
 ### multiple-items-date-forecast-cli:
 
@@ -58,9 +55,9 @@ Throughput values can be of any type for use in planning (i.e., features, work i
 
 * **historical_throughput** - Add historical throughput values
 
-Note that standard deviation of historical thorughput values can be represented in the following line of code:
+Note that standard deviation of historical thorughput values can be represented in the following user parameter:
 
-> simulated_value = random.normalvariate(historical_value, 5)  # Using standard deviation of 5
+* **throughput_sigma** - Standard deviation for historical throughput values
 
 ### multiple-items-date-forecast-wip.py:
 
