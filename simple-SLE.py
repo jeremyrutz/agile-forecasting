@@ -1,20 +1,21 @@
-# simple-sle.py Version 1.0
+# simple-sle.py Version 1.2 (Loads data and timebox_duration from JSON)
 
-from collections import defaultdict
+import json
+import os
 
-# Sample historical data
-historical_data = [
-    {"state": "To Do", "time_spent": 5},
-    {"state": "In Progress", "time_spent": 17},
-    {"state": "Review", "time_spent": 4}
-    # Add more historical data as needed
-]
+# Load configuration from external JSON file
+config_path = 'simple-sle.config.json'
+if not os.path.exists(config_path):
+    raise FileNotFoundError(f"Config file not found: {config_path}")
+
+with open(config_path, 'r') as f:
+    config = json.load(f)
+
+historical_data = config["historical_data"]
+timebox_duration = config["timebox_duration"]
 
 # Calculate total time spent in the workflow
 total_time_to_done = sum(data["time_spent"] for data in historical_data)
-
-# Set timebox duration (in days)
-timebox_duration = 14
 
 # Calculate adjustment factor
 adjustment_factor = timebox_duration / total_time_to_done

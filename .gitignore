@@ -1,2 +1,3 @@
 # Ignore all input json files
 *.json
+*.csv

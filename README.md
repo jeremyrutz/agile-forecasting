@@ -16,6 +16,8 @@ Generates probable date forecasts for completing multiple items.
   
 throughputs, num_items, num_completed all need to be of the same value type. That is, if throughput is in user stories, then num_completed should be the planned user stories and num_completed are the user stories completed to date.
 
+User parameter values must be added to **multiple-items-date-forecast.config.json** for input. See example file for parameters and format.
+
 ### multiple-items-date-forecast-cli:
 
 Same script as above, except that the script uses historical throughput values from a comma-delimited (CSV) file via a command line argument.
@@ -53,6 +55,8 @@ an example CSV file "throughput_data.csv" has been uploaded to the repo as an ex
 
 Throughput values can be of any type for use in planning (i.e., features, work items)
 
+User parameter values must be added to **multiple-items-probability-forecast.config.json** for input. See example file for parameters and format.
+
 * **historical_throughput** - Add historical throughput values
 
 Note that standard deviation of historical thorughput values can be represented in the following user parameter:
@@ -71,8 +75,10 @@ Below are some scripts to use to calculate Service Level Expectations (SLEs) for
 
 ### simple-sle.py:
 
-* Update **historical_data** with the states and average cycle times per state you wish to use in your calculations
-* Set the **timebox_duration** to the timebox you wish to use for your SLE (in this case, default to 14 days/2 weeks)
+* Update **historical_data** with the states and average cycle times per state you wish to use in your calculations. Additional states and time_spent per state can be added as per your individual workflow.
+* Set the **timebox_duration** to the timebox you wish to use for your SLE (in this case, default to 14 days/2 weeks).
+
+User parameter values must be added to **simple-sle.config.json** for input. See example file for parameters and format.
 
 SLE will be generated based on the length of the timebox. If the historical data used is longer than the specified timebox_duration, then the SLE for each state in the workflow will be adjusted accordingly to fit within the timebox. This will give you an idea of historically how long each work item spends in each state, relative to the timebox specified. You can use this information to rightsize your work accordingly.
 

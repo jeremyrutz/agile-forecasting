@@ -1,0 +1,8 @@
+{
+  "timebox_duration": 14,
+  "historical_data": [
+    { "state": "To Do", "time_spent": 5 },
+    { "state": "In Progress", "time_spent": 17 },
+    { "state": "Review", "time_spent": 4 }
+  ]
+}
