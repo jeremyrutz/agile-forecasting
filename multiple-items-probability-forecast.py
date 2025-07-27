@@ -1,31 +1,30 @@
-# Version 1.1 with Histogram (Raw Count on Y-axis)
-
+import json
 import random
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Historical throughput values
-historical_throughput = [6,11,7,9,9,2]
+# Load configuration from a JSON file
+with open('multiple-items-probability-forecast.config.json', 'r') as config_file:
+    config = json.load(config_file)
+
+# Read parameters from config
+historical_throughput = config['historical_throughput']
+throughput_sigma = config['throughput_sigma']
 
 # Number of simulations
 num_simulations = 10000
 
-# User Defined Parameters
-throughput_sigma = 10
-
 # Perform Monte Carlo Simulation
 simulated_throughput = []
 for _ in range(num_simulations):
-    # Randomly pick one throughput value from historical data
     historical_value = random.choice(historical_throughput)
-    # Generate simulated throughput value using random.normalvariate
-    simulated_value = random.normalvariate(historical_value, throughput_sigma)  
+    simulated_value = random.normalvariate(historical_value, throughput_sigma)
     simulated_throughput.append(simulated_value)
 
 # Sort the simulated throughput values
 simulated_throughput.sort()
 
-# Calculate the probability of throughput at P60, P85, and P95
+# Calculate percentiles
 p60 = np.percentile(simulated_throughput, 60)
 p85 = np.percentile(simulated_throughput, 85)
 p95 = np.percentile(simulated_throughput, 95)
@@ -35,7 +34,7 @@ print("Probability of throughput at P60:", p60)
 print("Probability of throughput at P85:", p85)
 print("Probability of throughput at P95:", p95)
 
-# Plot histogram with raw count on y-axis
+# Plot histogram
 plt.hist(simulated_throughput, bins=30, alpha=0.7, color='blue', edgecolor='black')
 plt.axvline(x=p60, color='red', linestyle='--', label='P60 = {}'.format(round(p60)))
 plt.axvline(x=p85, color='green', linestyle='--', label='P85 = {}'.format(round(p85)))
