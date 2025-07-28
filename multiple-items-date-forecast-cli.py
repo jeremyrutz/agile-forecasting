@@ -1,16 +1,16 @@
 """
 Monte Carlo Simulation for Project Completion Dates
-Version: 1.8 (CLI CSV input + JSON config)
+Version: 1.9 (CLI CSV input + JSON config with truncated normal throughput)
 """
 
 import csv
 import os
 import sys
 import json
-import random
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime, timedelta
+from scipy.stats import truncnorm  # <-- NEW: for truncated normal distribution
 
 # Constants
 num_simulations = 10000
@@ -49,6 +49,11 @@ def load_throughput_data(file_path):
 
 throughputs = load_throughput_data(csv_file_path)
 
+# === Truncated normal sampler ===
+def sample_throughput(mean, sigma):
+    a = (0 - mean) / sigma  # lower bound in standardized units
+    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma)
+
 # === Simulation Logic ===
 def calculate_completion_dates(base_date):
     completion_dates = []
@@ -56,13 +61,15 @@ def calculate_completion_dates(base_date):
         completed = num_completed
         current_week = 0
         while completed < num_items:
-            throughput = random.choice(throughputs)
-            completed += random.normalvariate(throughput / timeframe_weeks, throughput_sigma)
+            throughput = np.random.choice(throughputs)
+            delta = sample_throughput(throughput / timeframe_weeks, throughput_sigma)
+            completed += delta
             current_week += 1
         completion_date = base_date + timedelta(weeks=current_week)
         completion_dates.append(completion_date)
     return completion_dates
 
+# === Run Simulation ===
 base_date = datetime.strptime(start_date, "%Y-%m-%d") if start_date else datetime.today()
 completion_dates = calculate_completion_dates(base_date)
 
