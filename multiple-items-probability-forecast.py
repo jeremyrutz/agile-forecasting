@@ -14,10 +14,9 @@ throughput_sigma = config['throughput_sigma']
 # Number of simulations
 num_simulations = 10000
 
-# === Truncated normal sampler ===
 def sample_throughput(mean, sigma):
-    a = (0 - mean) / sigma  # lower bound in standardized units
-    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma)
+    a = (0 - mean) / sigma if sigma > 0 else -np.inf
+    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma) if sigma > 0 else mean
 
 # Perform Monte Carlo Simulation
 simulated_throughput = []

@@ -24,10 +24,9 @@ start_date = config.get("start_date", "")
 # Constants
 num_simulations = 10000
 
-# NEW: Truncated normal sampling function
 def sample_throughput(mean, sigma):
-    a = (0 - mean) / sigma  # lower bound in standardized units
-    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma)
+    a = (0 - mean) / sigma if sigma > 0 else -np.inf
+    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma) if sigma > 0 else mean
 
 # Simulation function
 def calculate_completion_dates(base_date):
