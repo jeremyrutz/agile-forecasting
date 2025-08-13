@@ -49,10 +49,9 @@ def load_throughput_data(file_path):
 
 throughputs = load_throughput_data(csv_file_path)
 
-# === Truncated normal sampler ===
 def sample_throughput(mean, sigma):
-    a = (0 - mean) / sigma  # lower bound in standardized units
-    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma)
+    a = (0 - mean) / sigma if sigma > 0 else -np.inf
+    return truncnorm.rvs(a, np.inf, loc=mean, scale=sigma) if sigma > 0 else mean
 
 # === Simulation Logic ===
 def calculate_completion_dates(base_date):
